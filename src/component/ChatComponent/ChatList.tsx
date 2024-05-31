@@ -27,26 +27,28 @@ const ChatList = ({navigation}: any) => {
   const getDataList = () => {
     if (!currentUser) {
       return;
-    } 
-    ref.onSnapshot(querySnapshot => {
-      const usersList: any = [];
-      querySnapshot.forEach(doc => {
-        if (doc.id !== currentUser.uid) {
-          usersList.push({
-            ...doc.data(),
-            id: doc.id,
-          });
-        } else {
-          setCurrentUserData(doc.data());
-        }
+    }
+    else{
+      ref.onSnapshot(querySnapshot => {
+        const usersList: any = [];
+        querySnapshot.forEach(doc => {
+          if (doc.id !== currentUser.uid) {
+            usersList.push({
+              ...doc.data(),
+              id: doc.id,
+            });
+          } else {
+            setCurrentUserData(doc.data());
+          }
+        });
+        setUsers(usersList);
       });
-      setUsers(usersList);
-    });
+    }
   };
 
   useEffect(() => {
     getDataList();
-  }, [currentUser,users]);
+  }, [users,currentUser]);
 
   const renderItem = ({item}: any) => {
     return (

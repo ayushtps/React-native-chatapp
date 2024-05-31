@@ -65,6 +65,7 @@ const Login = () => {
             onChangeText={setEmail}
             activeUnderlineColor={colors.PrimaryColor}
             underlineColor={colors.secondaryColor}
+            textColor={colors.blackColor}
           />
           {formError.email && (
             <Text style={styles.error}>{formError.email}</Text>
@@ -77,6 +78,7 @@ const Login = () => {
             secureTextEntry={true}
             activeUnderlineColor={colors.PrimaryColor}
             underlineColor={colors.secondaryColor}
+            textColor={colors.blackColor}
           />
           {formError.password && (
             <Text style={styles.error}>
@@ -156,6 +158,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text1: {
+    color:colors.blackColor,
     fontFamily: fonts.regular,
   },
   linkText: {

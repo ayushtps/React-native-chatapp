@@ -4,7 +4,7 @@ import {Image, StyleSheet, View} from 'react-native';
 import {GiftedChat, InputToolbar, Send} from 'react-native-gifted-chat';
 import {AuthenticatedUserContext} from '../../../App';
 import Header from '../layout/Header';
-import { colors } from '../../constants/colors';
+import {colors} from '../../constants/colors';
 
 const sendBtn = require('../../asset/icon/Send.png');
 
@@ -25,7 +25,7 @@ const ChatComponent = ({route}: any) => {
 
   const userObj = {
     _id: user.uid,
-    avatar:c_user.avatar
+    avatar: c_user.avatar,
   };
 
   const getChat = () => {
@@ -37,7 +37,7 @@ const ChatComponent = ({route}: any) => {
           createdAt: doc.data().createdAt.toDate(),
         }));
         setMessages(fetchedMessages);
-      }); 
+      });
     return () => unsubscribe();
   };
 
@@ -76,12 +76,16 @@ const ChatComponent = ({route}: any) => {
   }, []);
 
   const renderAvatar = (props: any) => {
-    const { currentMessage } = props;
+    const {currentMessage} = props;
     if (currentMessage.user._id === c_user.uid) {
       return (
         <View style={styles.avatar}>
           <Image
-            source={{uri: c_user.avatar || 'https://www.w3schools.com/howto/img_avatar.png'}}
+            source={{
+              uri:
+                c_user.avatar ||
+                'https://www.w3schools.com/howto/img_avatar.png',
+            }}
             height={30}
             width={30}
             style={styles.img}
@@ -102,14 +106,9 @@ const ChatComponent = ({route}: any) => {
     );
   };
 
-
   return (
     <View style={styles.main}>
-      <Header
-        title={c_user.name}
-        image={c_user.avatar}
-        isShow={true}
-      />
+      <Header title={c_user.name} image={c_user.avatar} isShow={true} />
       <View style={styles.container}>
         <GiftedChat
           renderSend={renderSend}
@@ -120,6 +119,7 @@ const ChatComponent = ({route}: any) => {
           messages={messages}
           showUserAvatar={true}
           user={userObj}
+          textInputStyle={{color: colors.blackColor}}
           onSend={messages => onSend(messages)}
         />
       </View>

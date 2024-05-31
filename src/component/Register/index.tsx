@@ -27,6 +27,8 @@ type errorObj = {
 
 const handWave = require('../../asset/icon/create.png');
 const Google = require('../../asset/icon/Google.png');
+const facebook = require('../../asset/icon/facebook.png');
+const linkedin = require('../../asset/icon/linkedin.png');
 
 const Register = () => {
   const navigation = useNavigation();
@@ -85,18 +87,20 @@ const Register = () => {
       await GoogleSignin.hasPlayServices();
       const {idToken} = await GoogleSignin.signIn();
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-      await auth().signInWithCredential(googleCredential).then(userCredential => {
-        const {user} = userCredential;
-        if (user) {
-          ref.doc(user.uid).set({
-            name: name,
-            email: email,
-            password: pass,
-            uid: user.uid,
-          });
-        }
-        Alert.alert('Signed in with Google!');
-      })
+      await auth()
+        .signInWithCredential(googleCredential)
+        .then(userCredential => {
+          const {user} = userCredential;
+          if (user) {
+            ref.doc(user.uid).set({
+              name: name,
+              email: email,
+              password: pass,
+              uid: user.uid,
+            });
+          }
+          Alert.alert('Signed in with Google!');
+        });
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         Alert.alert('User cancelled the login process');
@@ -129,10 +133,9 @@ const Register = () => {
             style={styles.input}
             activeUnderlineColor={colors.PrimaryColor}
             underlineColor={colors.secondaryColor}
+            textColor={colors.blackColor}
           />
-          {formError.name && (
-            <Text style={styles.error}>{formError.name}</Text>
-          )}
+          {formError.name && <Text style={styles.error}>{formError.name}</Text>}
           <TextInput
             onChangeText={setEmail}
             value={email}
@@ -140,6 +143,7 @@ const Register = () => {
             style={styles.input}
             activeUnderlineColor={colors.PrimaryColor}
             underlineColor={colors.secondaryColor}
+            textColor={colors.blackColor}
           />
           {formError.email && (
             <Text style={styles.error}>{formError.email}</Text>
@@ -152,6 +156,7 @@ const Register = () => {
             secureTextEntry={true}
             activeUnderlineColor={colors.PrimaryColor}
             underlineColor={colors.secondaryColor}
+            textColor={colors.blackColor}
           />
           {formError.password && (
             <Text style={styles.error}>{formError.password}</Text>
@@ -162,9 +167,17 @@ const Register = () => {
             <Text style={styles.btnText}>SIGN UP</Text>
           </Pressable>
           <Text style={styles.option}>Or</Text>
-          <Pressable style={styles.googleContainer} onPress={googleSignIn}>
-            <Animatable.Image source={Google} animation="swing" />
-          </Pressable>
+          <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+            <Pressable style={styles.googleContainer} onPress={googleSignIn}>
+              <Image source={facebook}/>
+            </Pressable>
+            <Pressable style={styles.googleContainer} onPress={googleSignIn}>
+              <Image source={Google}/>
+            </Pressable>
+            <Pressable style={styles.googleContainer} onPress={googleSignIn}>
+              <Image source={linkedin}/>
+            </Pressable>
+          </View>
         </View>
       </View>
       <View style={styles.navigationContainer}>
@@ -248,6 +261,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text1: {
+    color:colors.blackColor,
     fontFamily: fonts.regular,
   },
   option: {

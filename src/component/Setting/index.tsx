@@ -9,8 +9,6 @@ const phone = require('../../asset/icon/phone-call.png');
 
 const Setting = ({route, navigation}: any) => {
   const {c_user} = route.params;
-  console.log('C_user', c_user);
-
   return (
     <View style={styles.settingContainer}>
       <View style={styles.settingHeader}>
